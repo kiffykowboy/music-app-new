@@ -12,14 +12,12 @@ import Dash from "./components/dash"
 
 
 function ButtonAppBar() {
-  const [User, setUser] = useState({loggedIn:null})
-  const getUserInfo = (User) =>{
-    setUser(User)
-  }
+  const [loggedIn, setLoggedIn] = useState(false)
 
   return (
+    
     <Box sx={{ flexGrow: 1 }}>
-      {console.log(User)}
+      {console.log(loggedIn)}
       <AppBar position="static">
         <Toolbar>
           <IconButton
@@ -37,10 +35,10 @@ function ButtonAppBar() {
         </Toolbar>
       </AppBar>
 
-      {!User.loggedIn
+      {loggedIn
       ?<Dash></Dash>
 
-      :<Thing getInfo={getUserInfo} ></Thing>
+      :<Thing setLoggedIn={setLoggedIn}></Thing>
       }
      
     </Box>

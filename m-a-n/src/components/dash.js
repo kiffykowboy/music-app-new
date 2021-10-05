@@ -12,19 +12,28 @@ import Select from '@mui/material/Select';
 
 
 export default function Dash() {
-  const [value, setValue] = useState(30);
+  const [volume, setVolume] = useState(30);
+  const [quality, setQuality] = useState(2);
+  const [online, setOnline] = useState(true);
 
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
+
+  const handleVolume = (event) => {
+    setVolume(event.target.value === '' ? '' : Number(event.target.value));
+        console.log(volume)
   }
 
   const label = { inputProps: { 'aria-label': 'Switch demo' } };
 
-  const [quality, setQual] = React.useState('');
 
   const handleChange2 = (event) => {
-    setQual(event.target.value);
+    setQuality(event.target.value);
   };
+
+  
+  const handleOnline = (event) => {
+    setOnline(event.target.checked);
+  };
+  
 
 
   return (
@@ -32,7 +41,8 @@ export default function Dash() {
     style={{
       display:"flex",
       flexDirection:"row",
-      justifyContent:"space-around"
+      justifyContent:"space-around",
+    
       }}>
  <Paper 
     style={{
@@ -58,14 +68,14 @@ export default function Dash() {
         display:"flex",
         justifyContent:"center"
       }}>
-      <Switch {...label} defaultChecked />
+      <Switch {...label} checked={online} onChange={handleOnline} />
       </div>   
 
     </Paper>
     <Paper 
     style={{
       width:"50vh", 
-      height:"50vh", 
+      height:"50vh",  
       display:"flex", 
       flexDirection:"column", 
       margin:"40px 20px 20px 20px"}} 
@@ -87,7 +97,15 @@ export default function Dash() {
 
       }}>
       <VolumeDown />
-        <Slider style={{margin:"auto 15px auto 15px"}} aria-label="Volume" value={value} onChange={handleChange} />
+        <Slider 
+        style={{margin:"auto 15px auto 15px"}} 
+        step={10}
+                    marks
+                    min={10}
+                    max={100}
+        aria-label="Volume" 
+        value={volume} 
+        onChange={handleVolume} />
         <VolumeUp />
       </div>
     </Paper>
@@ -124,13 +142,42 @@ export default function Dash() {
           label="quality"
           onChange={handleChange2}
         >
-          <MenuItem value={"Low"}>Low</MenuItem>
-          <MenuItem value={"Normal"}>Normal</MenuItem>
-          <MenuItem value={"High"}>High</MenuItem>
+          <MenuItem value={1}>Low</MenuItem>
+          <MenuItem value={2}>Normal</MenuItem>
+          <MenuItem value={3}>High</MenuItem>
         </Select>
+
+
       </FormControl>
       </div>
     </Paper>
+    <Paper 
+    style={{
+      width:"50vh", 
+      height:"50vh", 
+      flexDirection:"column", 
+      flexWrap:"wrap",
+      margin:"40px 20px 20px 20px"}} 
+      elevation={3}>    
+          <div style={{
+        display:"flex",
+        justifyContent:"center",
+        flexDirection:"column"
+      }}>
+        <div style={{
+        display:"flex",
+        justifyContent:"center",
+        flexDirection:"row",
+        flexWrap:"wrap"
+      }}>
+       <h2>  
+    System Notifications:</h2>
+      {volume >= 80 && <li style={{width:"100%", margin:"15px"}}> TOO LOUD</li>}
+      {quality === 1 && <li style={{width:"100%", margin:"15px"}}>  QUALITY IS LOW </li>}
+      {!online && <li style={{width:"100%", margin:"15px"}}> OFFLINE </li>}
+      </div>
+      </div>
+  </Paper>
     </div>
   )
 }

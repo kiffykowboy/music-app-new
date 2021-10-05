@@ -5,18 +5,10 @@ import Button  from '@mui/material/Button';
 
 
 function Thing(props) {
-  const [loggedIn, setLogin] = useState(false)
-  let User = []
+
 
   const handleClick = () =>{
-    setLogin(!loggedIn)
-
-  }
-
-  const handleLogin = (e) =>{
-    e.preventDefault()
-    User.loggedIn=loggedIn
-    console.log(loggedIn)
+    props.setLoggedIn(true)
   }
 
 
@@ -30,7 +22,7 @@ function Thing(props) {
       margin:"40px auto auto auto"}} 
       elevation={3}> 
     <h3 style={{display:"flex", justifyContent:"space-around"}}> Welcome to da  MUZZZIIIIKKK </h3>
-    <form onSubmit={handleLogin}>
+    <form>
     <div
     style={{
       margin:"10px"
